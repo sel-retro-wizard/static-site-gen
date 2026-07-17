@@ -24,7 +24,7 @@ class TextNode():
         self.url = url
     # Create __eq__ equality method to compare self and another instance (other). Return True if all properties are equal
     def __eq__(self, other):
-        if self.text == other.text & self.text_type == other.text_type & self.url == other.url:
+        if self.text == other.text and self.text_type == other.text_type and self.url == other.url:
             return True
     # Create __repr__ method to return string representation of TextNode object - TextNode(TEXT, TEXT_TYPE, URL)
     def __repr__(self):
