@@ -4,8 +4,8 @@
 
 # Define HTMLNode class with 4 members. (tag, value, children, props). All members default to None.
 
-class HTMLNode(tag = None, value = None, children = None, props = None):
-    def __init__(self):
+class HTMLNode():
+    def __init__(self, tag = None, value = None, children = None, props = None):
         self.tag = tag
         self.value = value
         self.children = children
@@ -13,7 +13,7 @@ class HTMLNode(tag = None, value = None, children = None, props = None):
 
     # Add a to_html(self) method. For now, it should just raise a NotImplementedError. Child classes will override this method to render themselves as HTML.
     def to_html(self):
-        raise exception(NotImplementedError)
+        raise NotImplementedError("To be implemented by child nodes")
 
     # Add a props_to_html(self) method. It should return a formatted string representing the HTML attributes of the node.
     def props_to_html(self):
@@ -24,10 +24,11 @@ class HTMLNode(tag = None, value = None, children = None, props = None):
         html_string = ""
         # for each entry in props dictionary, add to html string. Each attribute has a leading whitespace
         for attribute in self.props:
-            html_string += f" {attribute}={self.props[attribute]}"
+            html_string += f' {attribute}="{self.props[attribute]}"'
         # Return attribute string
         return html_string
 
     # dd a __repr__(self) method. Give yourself a way to print an HTMLNode object and see its tag, value, children, and props. 
     def __repr__(self):
-        return f"{self.tag}, {self.value}, {self.children}, {self.props}"    
+        return f"{self.tag}, {self.value}, {self.children}, {self.props}"   
+
