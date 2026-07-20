@@ -17,11 +17,11 @@ class HTMLNode():
 
     # Add a props_to_html(self) method. It should return a formatted string representing the HTML attributes of the node.
     def props_to_html(self):
-        # If no attributes, return empty string
-        if self.props == None:
-            return ""
         # Initilise string for return
         html_string = ""
+        # If no attributes, return empty string
+        if self.props == None:
+            return html_string
         # for each entry in props dictionary, add to html string. Each attribute has a leading whitespace
         for attribute in self.props:
             html_string += f' {attribute}="{self.props[attribute]}"'
