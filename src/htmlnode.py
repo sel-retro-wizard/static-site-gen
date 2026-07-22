@@ -30,5 +30,10 @@ class HTMLNode():
 
     # dd a __repr__(self) method. Give yourself a way to print an HTMLNode object and see its tag, value, children, and props. 
     def __repr__(self):
-        return f"{self.tag}, {self.value}, {self.children}, {self.props}"   
+        return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
 
+if __name__ == "__main__":
+    node = HTMLNode(tag = "<h1>")
+    print(repr(node))
+    node2 = HTMLNode(tag = "<a>", props = {"href":"www.link.com"})
+    print(node2.props_to_html())

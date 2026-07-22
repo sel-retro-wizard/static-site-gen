@@ -8,19 +8,24 @@ class HTMLNodeTest(unittest.TestCase):
         node = HTMLNode("<a>", "some text")
         self.assertRaises(NotImplementedError, node.to_html)
 
-    def test_props_to_html_with_link(self):
+    def test_props_to_html(self):
         node = HTMLNode(tag = "<h1>", value = "some text", props = {"href":"www.link.here"})
-        props = ' herf="www.link.here"'
-        print(node.props_to_html)
-        self.assertEqual(node.props_to_html, props)
-
-    def test_props_to_html_no_attributes(self):
+        props = ' href="www.link.here"'
+        self.assertEqual(node.props_to_html(), props)
         node = HTMLNode(tag="<h1>")
-        self.assertEqual(node.props_to_html, None)
+        self.assertEqual(node.props_to_html(), "")
 
     def test_repr(self):
-        pass
-        
+        node = HTMLNode(tag = "<h1>", value = "Heading One")
+        self.assertEqual(repr(node), "HTMLNode(<h1>, Heading One, None, None)") 
+       
+    def test_values(self):
+        node = HTMLNode("div","I wish I could read")
+        self.assertEqual(node.tag, "div")
+        self.assertEqual(node.value, "I wish I could read")
+        self.assertEqual(node.children, None)
+        self.assertEqual(node.props, None)
+
 if __name__ == "__main__":
     unittest.main()
 
