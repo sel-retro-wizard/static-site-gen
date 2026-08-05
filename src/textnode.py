@@ -38,13 +38,27 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
     # handle each type of the TextType enum.
     # If it gets a TextNode that is none of those types, it should raise an exception. Otherwise return a new LeafNode object.
     try:
-        match text_node:
+        match text_node.text_type:
+            # TextType.TEXT: no tag, text
             case TextType.PLAIN:
-                return LeafNode(value = text_node.text)
+                return LeafNode(None, text_node.text)
+            # TextType.BOLD: "b" tag, text
+            case TextType.BOLD:
+                return LeafNode("b", text_node.text)
+            # TextType.ITALIC: "i" tag, text
+            case TextType.ITALIC:
+                return LeafNode("i", text_node.text)
+            # TextType.CODE: "code" tag, text
+            case TextType.CODE:
+                return LeafNode("code", text_node.text)
+            # TextType.LINK: "a" tag, anchor text, and "href" prop
+            case TextType.LINK:
+                return LeafNode("a", text_node.text, {"href":text_type.url})
+            # TextType.IMAGE: "img" tag, empty string value, "src" and "alt" props ("src" is the image URL, "alt" is the alt text)
+            case TextType.IMAGE:
+                return LeafNode("img", None, {"src":text_type.url, "alt":text_type.text})
+
     except AttributeError as e:
         raise e
 
-if __name__ == "__main__":
-    text_node = TextNode("This is a string", TextType.PLAIN)
-    print(text_node)
-    print(text_node_to_html_node(text_node))
+
