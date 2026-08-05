@@ -3,6 +3,8 @@
 
 # Import Enum from enum
 from enum import Enum
+# Import LeafNode from htmlnode
+from htmlnode import LeafNode
 
 # Create enum called TextType. Should contain all types specified in project outline
 class TextType(Enum):
@@ -30,3 +32,19 @@ class TextNode():
     def __repr__(self):
         return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
 
+
+# Convert TextNode to LeafNode
+def text_node_to_html_node(text_node: TextNode) -> LeafNode:
+    # handle each type of the TextType enum.
+    # If it gets a TextNode that is none of those types, it should raise an exception. Otherwise return a new LeafNode object.
+    try:
+        match text_node:
+            case TextType.PLAIN:
+                return LeafNode(value = text_node.text)
+    except AttributeError as e:
+        raise e
+
+if __name__ == "__main__":
+    text_node = TextNode("This is a string", TextType.PLAIN)
+    print(text_node)
+    print(text_node_to_html_node(text_node))
