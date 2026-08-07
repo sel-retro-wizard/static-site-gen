@@ -53,10 +53,10 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
                 return LeafNode("code", text_node.text)
             # TextType.LINK: "a" tag, anchor text, and "href" prop
             case TextType.LINK:
-                return LeafNode("a", text_node.text, {"href":text_type.url})
+                return LeafNode("a", text_node.text, {"href":text_node.url})
             # TextType.IMAGE: "img" tag, empty string value, "src" and "alt" props ("src" is the image URL, "alt" is the alt text)
             case TextType.IMAGE:
-                return LeafNode("img", None, {"src":text_type.url, "alt":text_type.text})
+                return LeafNode("img", None, {"src":text_node.url, "alt":text_node.text})
 
     except AttributeError as e:
         raise e
