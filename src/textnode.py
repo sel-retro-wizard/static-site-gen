@@ -11,6 +11,7 @@ class TextType(Enum):
     PLAIN = "text(plain)"
     BOLD = "**Bold text**"
     ITALIC = "_Italic text_"
+    UNDERLINE = "__Underlinded text__"
     CODE = "`Code text`"
     LINK = "[anchor text](url)"
     IMAGE = "![alt text](url)"
@@ -48,6 +49,9 @@ def text_node_to_html_node(text_node: TextNode) -> LeafNode:
             # TextType.ITALIC: "i" tag, text
             case TextType.ITALIC:
                 return LeafNode("i", text_node.text)
+            # TextType.UNDERLINE" "underline" tag, text
+            case TextType.UNDERLINE:
+                return LeafNode("u", text_node.text)
             # TextType.CODE: "code" tag, text
             case TextType.CODE:
                 return LeafNode("code", text_node.text)
