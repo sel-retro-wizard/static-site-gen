@@ -3,6 +3,8 @@
 # Does not support nested inline elements
 # import textnode
 from textnode import TextNode, TextType
+# Import re for regex search
+import re
 
 # Function to create extract and convert markdown strings into TextNodes.
 def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: TextType) -> list[TextNode]:
@@ -37,8 +39,16 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
     # Return new_nodes
     return new_nodes
 
+# Function to extract images from raw markdown text. Returns a list of tuples.
+def extract_markdown_images(text):
+    return re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
+
+# Funciton to extract links from raw markdown text. Returns list of tuples.
+def extract_markdown_links(text):
+    return re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
+
+
 # Tempory test
 if __name__ == "__main__":
-    node = TextNode("This is text with a _italic_ text", TextType.PLAIN)
-    new_nodes = split_nodes_delimiter([node], "_", TextType.ITALIC)
-    print(new_nodes)
+    text = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
+    print(extract_markdown_images(text))
